@@ -8,20 +8,19 @@ pipeline {
                 checkout scm
             }
         }
-stage('Build') {
+        stage('Build') {
             steps {
                 echo 'Building the project...'
                 // Example: compile or build step
                 // sh 'javac Main.java'
             }
         }
-stage('Test') {
+        stage('Test') {
             steps {
                 echo 'Running tests...'
                 // Example: sh 'python3 -m unittest tests/'
             }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'

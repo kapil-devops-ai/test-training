@@ -14,7 +14,22 @@ pipeline {
                git url: 'https://github.com/kapil-devops-ai/test-training.git', branch: 'main'
             }
         }
+        stage('Manual Approval for Prod') {
+            when {
+                expression { return params.ENVIRONMENT == 'prod' }
+            }
 
+            steps {
+                script {
+                    def userInput = input(
+                        id: 'ProdApproval', message: 'Approve Production Deployment?', parameters: [
+                            [$class: 'TextParameterDefinition', defaultValue: '', description: 'Enter reason for approval', name: 'ApprovalReason']
+                        ]
+                    )
+                    echo "Approval reason: ${userInput}"
+                }
+            }
+        }
     stage('Deploy') {
             steps {
                 script {
